@@ -80,3 +80,10 @@ Tradeoffs: The first API call takes extra time to load the model into memory.
 Known Issues: None.
 Future Improvements: Could batch encode at the router layer instead of individual encode calls if throughput is a bottleneck.
 Next Milestone: Phase 5 (Vector Database / LanceDB)
+
+## Patch: Parser Service Inline Element Fix
+Date: 2026-07-01
+Objective: Fix markdown parser test failure caused by BeautifulSoup newline separation on inline elements.
+Completed Tasks: Implemented `_clean_html_text` helper in `ParserService` to intelligently separate only block-level HTML elements and safely merge inline elements.
+Files Modified:
+- app/services/parser_service.py

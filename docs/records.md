@@ -64,3 +64,12 @@
 - `app/core/config.py`
 - `app/services/embedding_service.py`
 - `tests/unit/test_embedding_service.py`
+
+## Patch: Parser Service Inline Element Fix
+**What:** Fixed a bug in `ParserService` where inline HTML elements (like `**bold**` markdown becoming `<strong>bold</strong>`) were being stripped into separate lines instead of kept adjacent to surrounding text.
+**How:** 
+1. Added a private `_clean_html_text` method in `ParserService`.
+2. It iterates through all block-level tags (`p`, `h1`, `div`, `li`, etc.) and manually appends a `\n` to them.
+3. Then it runs `soup.get_text(separator="")` so inline tags seamlessly merge with surrounding text without breaking into newlines.
+**Where (Filenames):**
+- `app/services/parser_service.py`

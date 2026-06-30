@@ -31,10 +31,17 @@ class ParserService:
         return ParsedDocument(document_path=file_path, pages=pages, metadata=doc_metadata)
 
     @staticmethod
+    def _clean_html_text(soup: BeautifulSoup) -> str:
+        for block in soup.find_all(["p", "h1", "h2", "h3", "h4", "h5", "h6", "div", "li", "blockquote"]):
+            block.append("\n")
+        text = soup.get_text(separator="")
+        return "\n".join([line.strip() for line in text.split("\n") if line.strip()])
+
+    @staticmethod
     def parse_html(file_path: str, stream: IO[bytes]) -> ParsedDocument:
         content = stream.read().decode("utf-8")
         soup = BeautifulSoup(content, "html.parser")
-        text = soup.get_text(separator="\n", strip=True)
+        text = ParserService._clean_html_text(soup)
         
         document_name = file_path.split("/")[-1]
         metadata = {
@@ -52,7 +59,7 @@ class ParserService:
         content = stream.read().decode("utf-8")
         html_content = markdown.markdown(content)
         soup = BeautifulSoup(html_content, "html.parser")
-        text = soup.get_text(separator="\n", strip=True)
+        text = ParserService._clean_html_text(soup)
         
         document_name = file_path.split("/")[-1]
         metadata = {
