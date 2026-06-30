@@ -1,0 +1,59 @@
+from typing import List, Optional
+from app.schemas.document import ParsedDocument, DocumentChunk
+from app.utils.hashing import generate_chunk_hash
+from app.core.config import settings
+
+class ChunkService:
+    @staticmethod
+    def chunk_document(document: ParsedDocument, chunk_size: Optional[int] = None, chunk_overlap: Optional[int] = None) -> List[DocumentChunk]:
+        """
+        Chunks a ParsedDocument into smaller DocumentChunk objects.
+        Uses a simple overlapping character-based chunking strategy.
+        """
+        if chunk_size is None:
+            chunk_size = settings.chunk_size
+        if chunk_overlap is None:
+            chunk_overlap = settings.chunk_overlap
+            
+        chunks: List[DocumentChunk] = []
+        
+        for page in document.pages:
+            text = page.text
+            
+            # Simple chunking loop
+            start = 0
+            while start < len(text):
+                # Calculate end index
+                end = start + chunk_size
+                
+                # If we are not at the end of the text, try to find a nice break point (e.g. newline or space)
+                # to avoid breaking words in half if possible.
+                if end < len(text):
+                    # Look backwards for a space or newline within the overlap region
+                    break_point = text.rfind("\n", max(0, start + chunk_size - chunk_overlap), end)
+                    if break_point == -1:
+                        break_point = text.rfind(" ", max(0, start + chunk_size - chunk_overlap), end)
+                    
+                    if break_point != -1:
+                        end = break_point + 1 # Include the space/newline
+                
+                chunk_text = text[start:end].strip()
+                
+                if chunk_text:
+                    chunk_id = generate_chunk_hash(document.document_path, page.page_number, chunk_text)
+                    
+                    chunks.append(DocumentChunk(
+                        chunk_id=chunk_id,
+                        document_path=document.document_path,
+                        page_number=page.page_number,
+                        text=chunk_text,
+                        metadata=page.metadata.copy()
+                    ))
+                
+                if end >= len(text):
+                    break
+                    
+                # Move start forward, accounting for overlap
+                start = end - chunk_overlap
+                
+        return chunks

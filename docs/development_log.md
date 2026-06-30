@@ -39,3 +39,24 @@
 **Known Issues:** None.
 **Future Improvements:** Handle complex tables in PDFs.
 **Next Milestone:** Phase 3: Custom Chunker
+
+# Milestone 3
+Date: 2026-07-01
+Objective: Build a custom text chunking utility from scratch.
+Completed Tasks: Implemented an overlapping character chunker that preserves document metadata, sets deterministic chunk IDs using SHA256 hashes, and handles boundaries properly. Configured via .env.
+Files Added:
+- app/services/chunk_service.py
+- tests/unit/test_chunk_service.py
+Files Modified:
+- app/core/config.py
+- app/schemas/document.py
+Classes Added: ChunkService, DocumentChunk
+Functions Added: ChunkService.chunk_document
+Endpoints Added: None
+Tests Added: test_chunk_document_basic, test_chunk_document_overlap_and_break
+Configuration Changes: Added chunk_size and chunk_overlap to app/core/config.py.
+Architectural Decisions: Avoided LangChain splitters entirely, implementing an independent text chunker.
+Tradeoffs: A character chunker is simple and fast, but lacks semantic understanding compared to an NLP-based sentence chunker.
+Known Issues: None.
+Future Improvements: Could implement semantic recursive chunking if retrieval quality isn't high enough.
+Next Milestone: Phase 4 (Embeddings)

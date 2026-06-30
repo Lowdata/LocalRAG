@@ -10,3 +10,10 @@ class ParsedDocument(BaseModel):
     document_path: str
     pages: List[ParsedPage]
     metadata: Dict[str, Any] = {}
+
+class DocumentChunk(BaseModel):
+    chunk_id: str
+    document_path: str
+    page_number: int
+    text: str
+    metadata: Dict[str, Any] = {}

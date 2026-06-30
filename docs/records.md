@@ -39,3 +39,17 @@
 - `.env`
 - `Dockerfile`
 - `README.md`
+
+## Phase 3: Custom Chunker
+**What:** Implemented a custom overlapping character-based chunking service to split ParsedDocuments into DocumentChunks without losing context.
+**How:** 
+1. Added `chunk_size=500` and `chunk_overlap=50` to `app/core/config.py` (overridable via `.env`).
+2. Added `DocumentChunk` schema to `app/schemas/document.py`.
+3. Created `ChunkService` in `app/services/chunk_service.py` that loops through page text, slices by `chunk_size`, and steps forward by `chunk_size - chunk_overlap`, trying to intelligently break on spaces or newlines.
+4. Used `generate_chunk_hash` for deterministic chunk IDs.
+5. Wrote Pytest tests to verify boundaries and metadata copying.
+**Where (Filenames):**
+- `app/core/config.py`
+- `app/schemas/document.py`
+- `app/services/chunk_service.py`
+- `tests/unit/test_chunk_service.py`
