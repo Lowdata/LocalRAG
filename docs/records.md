@@ -21,3 +21,10 @@
 - `app/schemas/document.py`
 - `app/utils/hashing.py`
 - `app/services/parser_service.py`
+
+## Phase 2: Refinements
+**What:** Improved markdown parsing to plain text and added rich metadata extraction for PDFs/HTML/Markdown.
+**How:** Used `markdown` and `BeautifulSoup4` combined to strip markdown syntax and convert it to plain text. Extracted `document_name`, `page_number`, `page_count`, `source_path`, and `file_type` in the parsers and injected them into the document/page metadata payload.
+**Where (Filenames):** 
+- `app/services/parser_service.py`
+- `tests/unit/test_parser.py`
