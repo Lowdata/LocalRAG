@@ -53,3 +53,14 @@
 - `app/schemas/document.py`
 - `app/services/chunk_service.py`
 - `tests/unit/test_chunk_service.py`
+
+## Phase 4: Embeddings
+**What:** Implemented the Embedding service using `sentence-transformers` and the local model `BAAI/bge-small-en-v1.5`.
+**How:** 
+1. Added `embedding_model` setting to `app/core/config.py`.
+2. Created `app/services/embedding_service.py` featuring lazy loading of the model so importing it doesn't cause immediate delays, and returning lists of floats (384 dimensions).
+3. Created unit tests in `tests/unit/test_embedding_service.py` to trigger model download and verify dimensions.
+**Where (Filenames):**
+- `app/core/config.py`
+- `app/services/embedding_service.py`
+- `tests/unit/test_embedding_service.py`

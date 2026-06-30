@@ -60,3 +60,23 @@ Tradeoffs: A character chunker is simple and fast, but lacks semantic understand
 Known Issues: None.
 Future Improvements: Could implement semantic recursive chunking if retrieval quality isn't high enough.
 Next Milestone: Phase 4 (Embeddings)
+
+# Milestone 4
+Date: 2026-07-01
+Objective: Implement a purely local text embedding service.
+Completed Tasks: Integrated `SentenceTransformers` using `BAAI/bge-small-en-v1.5` (384 dimensions). Added unit tests to automatically pull the model cache and verify operations.
+Files Added:
+- app/services/embedding_service.py
+- tests/unit/test_embedding_service.py
+Files Modified:
+- app/core/config.py
+Classes Added: EmbeddingService
+Functions Added: EmbeddingService.get_embedding, EmbeddingService.get_embeddings
+Endpoints Added: None
+Tests Added: test_get_embedding, test_get_embeddings
+Configuration Changes: Added embedding_model to config.
+Architectural Decisions: Used lazy loading (`cls._get_model()`) to avoid loading PyTorch overhead on startup unless an embedding is strictly needed. Kept the model completely localized via standard HuggingFace Cache.
+Tradeoffs: The first API call takes extra time to load the model into memory.
+Known Issues: None.
+Future Improvements: Could batch encode at the router layer instead of individual encode calls if throughput is a bottleneck.
+Next Milestone: Phase 5 (Vector Database / LanceDB)
