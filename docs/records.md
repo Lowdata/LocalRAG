@@ -28,3 +28,14 @@
 **Where (Filenames):** 
 - `app/services/parser_service.py`
 - `tests/unit/test_parser.py`
+
+## Docker Fixes & Documentation
+**What:** Fixed Docker configuration and updated README.
+**How:** 
+1. Added `.env` file via `.env.example`.
+2. Changed `Dockerfile` to `COPY . .` before `RUN pip install .` to fix missing package directory error.
+3. Added `README.md` with explicit local vs docker run instructions and a note about the initial PyTorch download time.
+**Where (Filenames):**
+- `.env`
+- `Dockerfile`
+- `README.md`
