@@ -16,63 +16,71 @@ This project is divided into two primary parts:
    - Includes robust bias-checking modules (position bias, verbosity, sycophancy).
    - Generates auditable suite reports with full prompt/response logging.
 
-## Prerequisites
+## Setup & Run Instructions
 
-Before running the backend, you must initialize your local environment variables.
+Anyone on our team can clone and run this in under ~10 minutes. 
 
-1. Copy the example environment file:
-   ```bash
-   cp .env.example .env
-   ```
-2. (Optional) Edit `.env` to configure your `OLLAMA_MODEL` and other overrides.
+### Prerequisites
+- **Runtime:** Python 3.10+
+- **OS:** macOS (Apple Silicon/Intel) or Linux (Ubuntu 20.04+)
+- **Services:** [Ollama](https://ollama.com/) (must be running in the background)
+- **Hardware:** Apple Silicon (M1+) or 8GB+ RAM (CPU only is supported but slower).
 
-### Installing and Running Ollama (Local LLM)
-Since this backend uses a local AI model, you must have [Ollama](https://ollama.com/) running on your machine to use the `/query` endpoint.
+### Environment Variables
+*(Copy from `.env.example` to `.env`)*
+- `OLLAMA_BASE_URL`
+- `OLLAMA_MODEL`
+- `EMBEDDING_MODEL`
+- `VECTOR_STORE_PATH`
+- `LOG_LEVEL`
+- `JUDGE_MODEL`
 
-**If you are a new user:**
-1. Download Ollama from [ollama.com](https://ollama.com/) (or run `brew install --cask ollama` on Mac).
-2. Open the Ollama application so the daemon runs in the background.
-3. Open your terminal and download the required AI models (Qwen for Generation, Llama 3.2 for the Judge):
-   ```bash
-   ollama pull qwen2.5:1.5b
-   ollama pull llama3.2
-   ```
-> **Tip:** If you ever try to run `ollama serve` in your terminal and get an `address already in use` error, it simply means the Ollama application is already running happily in your background/menu bar! You can either leave it running there, or quit it from your menu bar if you specifically want to run it from the terminal.
-> 
-> **How to completely kill Ollama (if the port is still in use):**
-> Sometimes quitting the menu bar app doesn't fully kill the background processes. To completely free up port 11434, run these commands in your terminal:
-> ```bash
-> pkill -f "Ollama"
-> pkill -f "ollama serve"
-> ```
-> Once killed, you can successfully run `ollama serve` in your terminal to view the logs.
-
-> **⚠️ Important Note on Ollama Networking:**
-> The `.env` file should have `OLLAMA_BASE_URL=http://localhost:11434`. 
-> - **When running natively** (Option 1), the backend will connect to Ollama on your `localhost`.
-> - **When running via Docker** (Option 2), the `docker-compose.yml` file automatically overrides this URL to `http://host.docker.internal:11434` so the container can securely route traffic to the Ollama daemon running on your host machine. You do **not** need to manually modify the `.env` file when switching between Docker and Native execution.
-
-## Getting Started
-
-### Option 1: Run Locally (Recommended for Development)
-To run natively on your host machine with hot-reloading:
-
+### Install
 ```bash
-# 1. Activate the virtual environment
+# 1. Clone the repository
+git clone https://github.com/your-org/LocalRAG.git
+cd LocalRAG
+
+# 2. Setup virtual environment
+python -m venv .venv
 source .venv/bin/activate
 
-# 2. Run the development server
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Pull the required models via Ollama
+ollama pull qwen2.5:1.5b
+ollama pull llama3.2
+
+# 5. Initialize environment variables
+cp .env.example .env
+
+# 6. Start the FastAPI server
 uvicorn app.main:app --reload
 ```
-The server will be available at `http://localhost:8000`. You can view the interactive API documentation at `http://localhost:8000/docs`.
 
-### Option 2: Run via Docker
-To run inside a fully isolated Linux container:
-
+### Ingest a corpus
+Upload a document to the vector store. By default, the system uses a **chunk size of 512** tokens and an **overlap of 50** tokens.
 ```bash
-docker compose up --build
+curl -X 'POST' \
+  'http://localhost:8000/api/v1/ingest' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@docs/architecture.md'
 ```
-> **Note:** The first time you build the Docker image, it may take 5-10 minutes because PyTorch and its CUDA drivers are downloaded.
+
+### Run a query
+Ask a question over your ingested corpus.
+```bash
+curl -X 'POST' \
+  'http://localhost:8000/api/v1/query' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "query": "What is the weak link in the architecture?",
+  "document_path": "docs/architecture.md"
+}'
+```
 
 ## API Endpoints
 
