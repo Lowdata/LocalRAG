@@ -1,12 +1,12 @@
-# RAG Backend
+# Local RAG Backend
 
-A production-ready Retrieval-Augmented Generation (RAG) backend built for local environments.
+A completely offline, local-only Retrieval-Augmented Generation (RAG) backend built with FastAPI, LanceDB, SentenceTransformers, and Ollama.
 
-## Features (In Progress)
-- Local embeddings (SentenceTransformers)
-- Vector Storage (LanceDB)
-- API (FastAPI)
-- Local LLM Integration (Ollama)
+## Architecture Highlights
+- **FastAPI**: Handles high-performance asynchronous API endpoints.
+- **LanceDB**: Local, embedded PyArrow-based vector database (no extra servers needed).
+- **SentenceTransformers**: `BAAI/bge-small-en-v1.5` running locally via PyTorch for fast, local embedding generation.
+- **Ollama**: Connects to a local Ollama instance (defaulting to `qwen2.5:1.5b`) for LLM response generation.
 
 ## Prerequisites
 
@@ -17,6 +17,8 @@ Before running the backend, you must initialize your local environment variables
    cp .env.example .env
    ```
 2. (Optional) Edit `.env` to configure your `OLLAMA_MODEL` and other overrides.
+
+Make sure you have [Ollama](https://ollama.com/) running on your machine if you plan to use the `/query` endpoint.
 
 ## Getting Started
 
@@ -38,13 +40,30 @@ To run inside a fully isolated Linux container:
 ```bash
 docker compose up --build
 ```
-> **Note:** The first time you build the Docker image, it may take 5-10 minutes. This is because PyTorch (and its NVIDIA CUDA drivers) are over 2GB and must be downloaded from scratch into the Linux environment. Subsequent starts will be almost instant!
+> **Note:** The first time you build the Docker image, it may take 5-10 minutes because PyTorch and its CUDA drivers are downloaded.
 
-The server will be available at `http://localhost:8000/docs`.
+## API Endpoints
+
+Once running, you can access the following REST APIs:
+
+- `GET /health`: Check if the API and LLM configurations are active.
+- `POST /api/v1/ingest`: Upload a `.pdf`, `.md`, or `.html` file. The backend will parse, chunk, embed, and store it in LanceDB.
+- `GET /api/v1/documents`: List all currently ingested documents in the vector store.
+- `DELETE /api/v1/documents/{document_path}`: Delete a document and all of its chunks.
+- `POST /api/v1/query`: Send a JSON body `{"query": "your question"}` to retrieve relevant chunks and generate a response from Ollama.
+
+## Evaluation Pipeline
+
+To test the latency and functionality of your RAG pipeline end-to-end:
+
+```bash
+python scripts/evaluate.py
+```
+
+This will run a suite of benchmark questions against your live API and output the average retrieval + generation latency.
 
 ## Utility Scripts
 
 We provide cross-platform scripts in the `scripts/` directory to help automate development tasks:
-
-- `scripts/setup.sh` / `setup.ps1`: Initializes the virtual environment, installs standard dependencies, installs development dependencies (pytest, black, ruff, mypy), and verifies the setup.
-- `scripts/run.sh` / `run.ps1`: Automatically launches the Docker environment (`docker compose up`), handling differences between older and newer Docker versions gracefully.
+- `scripts/setup.sh` / `setup.ps1`: Initializes the virtual environment, installs dependencies.
+- `scripts/run.sh` / `run.ps1`: Automatically launches the Docker environment.

@@ -135,3 +135,12 @@
 3. Calculates and outputs average latency and success rates.
 **Where (Filenames):**
 - `scripts/evaluate.py`
+
+## Phase 9: Documentation
+**What:** Finalized system architecture diagrams and updated the README.
+**How:** 
+1. Rewrote the `README.md` to cleanly describe the final technology stack, API endpoints, and evaluation scripts.
+2. Created `docs/architecture.md` containing a Mermaid diagram illustrating the Ingestion Pipeline and the Query Pipeline.
+**Where (Filenames):**
+- `README.md`
+- `docs/architecture.md`

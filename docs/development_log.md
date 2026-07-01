@@ -184,3 +184,21 @@ Tradeoffs: Hardcoded dataset for simplicity right now, but easily expandable.
 Known Issues: None.
 Future Improvements: Support reading questions from a CSV/JSON file.
 Next Milestone: Phase 9 (Documentation)
+
+# Milestone 9
+Date: 2026-07-01
+Objective: Finalize architecture docs and README.md.
+Completed Tasks: Updated `README.md` and added `docs/architecture.md`.
+Files Added/Modified:
+- README.md
+- docs/architecture.md
+Classes Added: None
+Functions Added: None
+Endpoints Added: None
+Tests Added: None
+Configuration Changes: None.
+Architectural Decisions: Used Mermaid.js for architecture diagrams to render natively in GitHub and markdown viewers.
+Tradeoffs: None
+Known Issues: None.
+Future Improvements: Provide detailed Swagger/OpenAPI examples.
+Next Milestone: Project Completed.
