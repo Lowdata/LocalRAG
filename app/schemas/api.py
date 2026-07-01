@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 class IngestResponse(BaseModel):
     message: str
@@ -23,6 +23,7 @@ class DeleteResponse(BaseModel):
 class QueryRequest(BaseModel):
     query: str
     top_k: int = 5
+    document_path: Optional[str] = None
 
 class SourceChunk(BaseModel):
     chunk_id: str

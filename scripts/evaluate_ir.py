@@ -136,7 +136,7 @@ async def run_evaluation():
             print(f"\n[{idx+1}/{len(DATASET)}] Q: {q}")
             start_time = time.time()
             try:
-                response = await client.post(API_URL, json={"query": q, "top_k": 3})
+                response = await client.post(API_URL, json={"query": q, "top_k": 3, "document_path": EVAL_FILE})
                 latency = time.time() - start_time
                 
                 if response.status_code == 200:

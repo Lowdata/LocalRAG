@@ -15,7 +15,11 @@ async def query_documents(
 ) -> QueryResponse:
     try:
         # 1. Retrieve
-        results = store.search(request.query, limit=request.top_k)
+        results = store.search(
+            request.query, 
+            limit=request.top_k, 
+            document_path=request.document_path
+        )
         
         # 2. Extract Context and Sources
         context_texts = []

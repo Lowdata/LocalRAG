@@ -44,16 +44,19 @@ class VectorStore:
             
         self.table.add(records)
         
-    def search(self, query: str, limit: int = 5) -> List[ChunkRecord]:
+    def search(self, query: str, limit: int = 5, document_path: Optional[str] = None) -> List[ChunkRecord]:
         """Embeds the query and searches LanceDB for nearest neighbors."""
         query_embedding = EmbeddingService.get_embedding(query)
         
-        # search returns a builder, to_pydantic() executes it and casts to LanceModel
-        results = (
-            self.table.search(query_embedding)
-            .limit(limit)
-            .to_pydantic(ChunkRecord)
-        )
+        # search returns a builder
+        builder = self.table.search(query_embedding).limit(limit)
+        
+        # Apply metadata filtering if requested
+        if document_path:
+            safe_path = document_path.replace("'", "''")
+            builder = builder.where(f"document_path = '{safe_path}'", prefilter=True)
+            
+        results = builder.to_pydantic(ChunkRecord)
         return results # type: ignore
 
     def delete_document(self, document_path: str) -> None:

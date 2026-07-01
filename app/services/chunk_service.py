@@ -56,6 +56,19 @@ class ChunkService:
                     break
                     
                 # Move start forward, accounting for overlap
-                start = end - chunk_overlap
+                new_start = end - chunk_overlap
+                
+                # If we are in the middle of a word, advance to the next whitespace boundary
+                # so the next chunk doesn't start with a partial word.
+                if new_start > 0 and text[new_start-1] not in (" ", "\n"):
+                    # Find nearest space or newline after new_start
+                    next_space = text.find(" ", new_start)
+                    next_newline = text.find("\n", new_start)
+                    
+                    valid_boundaries = [b for b in (next_space, next_newline) if b != -1]
+                    if valid_boundaries:
+                        new_start = min(valid_boundaries) + 1
+                
+                start = new_start
                 
         return chunks
