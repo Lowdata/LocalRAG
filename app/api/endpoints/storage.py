@@ -1,3 +1,4 @@
+from typing import Any
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
 from typing import Dict
 from app.schemas.api import (
@@ -24,7 +25,7 @@ def get_ingestion_service(
     return IngestionService(store)
 
 
-from typing import Any
+
 
 
 @router.post("/ingest", response_model=IngestResponse)

@@ -1,3 +1,4 @@
+from typing import Any
 from fastapi import APIRouter
 from pydantic import BaseModel
 from app.schemas.judge import JudgeCase, JudgeCaseResult
@@ -20,7 +21,7 @@ class CompareRequest(BaseModel):
     prompt_v2: str = "v2"
 
 
-from typing import Any
+
 
 
 @router.post("", response_model=JudgeCaseResult)
