@@ -18,3 +18,17 @@ class DocumentsListResponse(BaseModel):
 class DeleteResponse(BaseModel):
     message: str
     document_path: str
+
+
+class QueryRequest(BaseModel):
+    query: str
+    top_k: int = 5
+
+class SourceChunk(BaseModel):
+    document_path: str
+    page_number: int
+    text: str
+
+class QueryResponse(BaseModel):
+    answer: str
+    sources: List[SourceChunk]

@@ -146,3 +146,24 @@ Tradeoffs: None
 Known Issues: None.
 Future Improvements: None.
 Next Milestone: Phase 7 (Retrieval & LLM integration with Ollama)
+
+# Milestone 7
+Date: 2026-07-01
+Objective: Build the Retrieval and LLM pipeline to answer queries utilizing Ollama.
+Completed Tasks: Implemented `LLMService`, created the `POST /api/v1/query` endpoint, wired it to `VectorStore`, added mock tests to verify flow, and fully typed it.
+Files Added/Modified:
+- app/schemas/api.py
+- app/services/llm_service.py
+- app/api/endpoints/query.py
+- app/main.py
+- tests/integration/test_query_api.py
+Classes Added: QueryRequest, QueryResponse, SourceChunk, LLMService
+Functions Added: LLMService.generate_response, LLMService.build_prompt, query_documents
+Endpoints Added: POST /api/v1/query
+Tests Added: test_query_api
+Configuration Changes: None.
+Architectural Decisions: Used `httpx` to cleanly interface with Ollama REST API directly, rather than bringing in heavyweight SDKs like Langchain. 
+Tradeoffs: Need to construct the RAG prompt manually.
+Known Issues: None.
+Future Improvements: Support streaming responses using Server-Sent Events (SSE).
+Next Milestone: Phase 8 (Evaluation Pipeline)

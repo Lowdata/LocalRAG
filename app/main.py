@@ -2,10 +2,11 @@ import typing
 from fastapi import FastAPI
 from app.middleware.logging import log_requests
 from app.core.config import settings
-from app.api.endpoints import storage
+from app.api.endpoints import storage, query
 
 app = FastAPI(title="RAG Backend API", version="0.1.0")
 app.include_router(storage.router, prefix="/api/v1", tags=["Storage"])
+app.include_router(query.router, prefix="/api/v1", tags=["Query"])
 
 app.middleware("http")(log_requests)
 

@@ -111,3 +111,18 @@
 - `app/api/endpoints/storage.py`
 - `app/main.py`
 - `pyproject.toml`
+
+## Phase 7: Retrieval & LLM (Ollama)
+**What:** Implemented `LLMService` to talk to the local Ollama instance and created the `/query` endpoint for Retrieval-Augmented Generation.
+**How:** 
+1. Added Pydantic schemas (`QueryRequest`, `QueryResponse`, `SourceChunk`) in `app/schemas/api.py`.
+2. Created `app/services/llm_service.py` to prompt the local Ollama LLM asynchronously using `httpx.AsyncClient`.
+3. Built `app/api/endpoints/query.py` combining vector search and prompt generation.
+4. Hooked it up in `app/main.py` under the `/api/v1/query` route.
+5. Wrote integration tests Mocking the LLM in `tests/integration/test_query_api.py`.
+**Where (Filenames):**
+- `app/schemas/api.py`
+- `app/services/llm_service.py`
+- `app/api/endpoints/query.py`
+- `app/main.py`
+- `tests/integration/test_query_api.py`
