@@ -125,3 +125,24 @@ Tradeoffs: Need to serialize/deserialize metadata to/from JSON strings manually 
 Known Issues: None.
 Future Improvements: None.
 Next Milestone: Phase 6 (Storage API)
+
+# Milestone 6
+Date: 2026-07-01
+Objective: Build the API storage layer to ingest documents and manage them via FastAPI.
+Completed Tasks: Implemented `/api/v1/ingest`, `/api/v1/documents`, and DELETE routes. Wired up the `IngestionService` which ties together the parser, chunker, and vector store perfectly. Added integration tests to verify file upload and parsing lifecycle.
+Files Added/Modified:
+- app/schemas/api.py
+- app/services/ingestion_service.py
+- app/api/endpoints/storage.py
+- app/main.py
+- pyproject.toml
+Classes Added: IngestResponse, DocumentInfo, DocumentsListResponse, DeleteResponse, IngestionService
+Functions Added: ingest_document, list_documents, delete_document
+Endpoints Added: POST /api/v1/ingest, GET /api/v1/documents, DELETE /api/v1/documents/{document_path}
+Tests Added: test_ingest_markdown, test_list_documents, test_delete_document
+Configuration Changes: Added `python-multipart` to `pyproject.toml`.
+Architectural Decisions: Implemented manual grouping of records in `list_documents` via Python since LanceDB Python API lacks complex SQL GROUP BY. This is perfectly performant for local RAG scales.
+Tradeoffs: None
+Known Issues: None.
+Future Improvements: None.
+Next Milestone: Phase 7 (Retrieval & LLM integration with Ollama)

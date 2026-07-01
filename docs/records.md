@@ -97,3 +97,17 @@
 - `app/schemas/vector.py`
 - `app/storage/vector_store.py`
 - `tests/unit/test_vector_store.py`
+
+## Phase 6: Storage API
+**What:** Created FastAPI endpoints to upload files, chunk them, embed them, and store them into LanceDB. Also added document listing and deletion.
+**How:** 
+1. Added Pydantic API schemas in `app/schemas/api.py`.
+2. Created `IngestionService` to orchestrate file parsing -> chunking -> vector storage.
+3. Created `app/api/endpoints/storage.py` with `/ingest`, `/documents`, and `DELETE /documents/{id}` routes.
+4. Integrated `python-multipart` to support file uploads.
+**Where (Filenames):**
+- `app/schemas/api.py`
+- `app/services/ingestion_service.py`
+- `app/api/endpoints/storage.py`
+- `app/main.py`
+- `pyproject.toml`
