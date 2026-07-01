@@ -126,3 +126,12 @@
 - `app/api/endpoints/query.py`
 - `app/main.py`
 - `tests/integration/test_query_api.py`
+
+## Phase 8: Evaluation Pipeline
+**What:** Created an evaluation script to test the end-to-end latency and response quality of the `/query` endpoint.
+**How:** 
+1. Wrote `scripts/evaluate.py`.
+2. Uses `httpx.AsyncClient` to asynchronously execute a suite of pre-defined benchmark RAG questions against the running API.
+3. Calculates and outputs average latency and success rates.
+**Where (Filenames):**
+- `scripts/evaluate.py`

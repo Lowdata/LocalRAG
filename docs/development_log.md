@@ -167,3 +167,20 @@ Tradeoffs: Need to construct the RAG prompt manually.
 Known Issues: None.
 Future Improvements: Support streaming responses using Server-Sent Events (SSE).
 Next Milestone: Phase 8 (Evaluation Pipeline)
+
+# Milestone 8
+Date: 2026-07-01
+Objective: Build metrics and scripts/evaluate.py.
+Completed Tasks: Created a standalone async evaluation script that pings the `POST /api/v1/query` endpoint.
+Files Added/Modified:
+- scripts/evaluate.py
+Classes Added: None
+Functions Added: run_evaluation, main
+Endpoints Added: None
+Tests Added: None (This script acts as the evaluation suite).
+Configuration Changes: None.
+Architectural Decisions: Used `asyncio` and `httpx.AsyncClient` to allow for scalable asynchronous benchmarking if the question dataset grows large.
+Tradeoffs: Hardcoded dataset for simplicity right now, but easily expandable.
+Known Issues: None.
+Future Improvements: Support reading questions from a CSV/JSON file.
+Next Milestone: Phase 9 (Documentation)
