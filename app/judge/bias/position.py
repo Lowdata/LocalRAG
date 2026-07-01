@@ -1,4 +1,6 @@
 from typing import Any
+
+
 class PositionBias:
     @staticmethod
     def measure_flip_rate(results_ab: list[Any], results_ba: list[Any]) -> float:

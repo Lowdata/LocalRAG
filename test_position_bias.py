@@ -16,24 +16,29 @@ Answer B: {answer_b}
 Output ONLY valid JSON matching: {{"winner": "A" or "B" or "Tie", "reasoning": "..."}}
 """
 
+
 async def run_judge(question: str, ans_a: str, ans_b: str, order: str) -> dict:
     prompt = PROMPT_TEMPLATE.format(question=question, answer_a=ans_a, answer_b=ans_b)
-    
+
     async with httpx.AsyncClient(timeout=120.0) as client:
-        res = await client.post(OLLAMA_URL, json={
-            "model": MODEL,
-            "prompt": prompt,
-            "stream": False,
-            "options": {"temperature": 0.0}
-        })
-        
+        res = await client.post(
+            OLLAMA_URL,
+            json={
+                "model": MODEL,
+                "prompt": prompt,
+                "stream": False,
+                "options": {"temperature": 0.0},
+            },
+        )
+
         raw_response = res.json().get("response", "")
         # Fallback parser logic
         start = raw_response.find("{")
         end = raw_response.rfind("}")
         if start != -1 and end != -1:
-            return json.loads(raw_response[start:end+1])
+            return json.loads(raw_response[start : end + 1])
         return {"winner": "Error", "reasoning": "Parse Failed"}
+
 
 async def main():
     question = "What is LanceDB?"
@@ -71,14 +76,19 @@ async def main():
     print("==================================================")
     # Analyze Flip Rate
     if res1["winner"] == "A" and res2["winner"] == "A":
-        print("🚨 POSITION BIAS DETECTED: The model blindly voted for Answer A regardless of quality.")
+        print(
+            "🚨 POSITION BIAS DETECTED: The model blindly voted for Answer A regardless of quality."
+        )
         print("Flip Rate: 100%")
     elif res1["winner"] == "B" and res2["winner"] == "A":
-        print("✅ NO BIAS DETECTED: The model correctly identified the 'Detailed' answer both times.")
+        print(
+            "✅ NO BIAS DETECTED: The model correctly identified the 'Detailed' answer both times."
+        )
         print("Flip Rate: 0%")
     else:
         print("⚠️ INCONCLUSIVE: Result was inconsistent or tied.")
     print("==================================================")
+
 
 if __name__ == "__main__":
     asyncio.run(main())

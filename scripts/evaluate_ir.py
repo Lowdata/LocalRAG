@@ -27,6 +27,7 @@ When running natively, set OLLAMA_BASE_URL to localhost:11434. When running via 
 # Assuming a chunk size that roughly captures 1-2 sections per chunk.
 # By forcing specific chunk_ids, we can compute strict IR metrics.
 from typing import Any
+
 DATASET: list[dict[str, Any]] = [
     {
         "question": "What components make up the architecture of the RAG backend?",

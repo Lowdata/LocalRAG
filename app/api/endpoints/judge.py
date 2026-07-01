@@ -21,6 +21,8 @@ class CompareRequest(BaseModel):
 
 
 from typing import Any
+
+
 @router.post("", response_model=JudgeCaseResult)
 @router.post("", response_model=JudgeCaseResult)
 async def evaluate_single_case(request: JudgeSingleRequest) -> Any:

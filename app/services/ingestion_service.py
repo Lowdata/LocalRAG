@@ -10,6 +10,7 @@ class IngestionService:
         self.vector_store = vector_store
 
     from typing import Any
+
     def ingest_file(self, filename: str, content: IO[bytes]) -> dict[str, Any]:
         """
         Orchestrates the ingestion of a single file:

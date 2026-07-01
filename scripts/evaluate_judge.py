@@ -8,7 +8,9 @@ from app.judge.aggregator import judge_aggregator
 API_URL = "http://localhost:8000/api/v1/query"
 
 
-async def run_evaluation_pipeline(suite_path: str = "eval_datasets/judge/suite.json") -> None:
+async def run_evaluation_pipeline(
+    suite_path: str = "eval_datasets/judge/suite.json",
+) -> None:
     print(f"Loading suite from {suite_path}...")
     with open(suite_path, "r") as f:
         cases_data = json.load(f)
