@@ -4,9 +4,10 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 class JudgeLogger:
-    def __init__(self, logs_dir: str = "logs/judge"):
+    def __init__(self, logs_dir: str = "logs"):
         self.logs_dir = logs_dir
         os.makedirs(self.logs_dir, exist_ok=True)
+        self.log_file = os.path.join(self.logs_dir, "judge_audit.jsonl")
 
     def log_evaluation(
         self, 
@@ -16,23 +17,20 @@ class JudgeLogger:
         parsed_json: Optional[Dict[str, Any]], 
         metadata: Dict[str, Any]
     ) -> str:
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-        run_dir = os.path.join(self.logs_dir, f"{case_id}_{timestamp}")
-        os.makedirs(run_dir, exist_ok=True)
+        timestamp = datetime.now().isoformat()
+        
+        log_entry = {
+            "timestamp": timestamp,
+            "case_id": case_id,
+            "metadata": metadata,
+            "prompt": prompt,
+            "raw_response": raw_response,
+            "parsed": parsed_json
+        }
+        
+        with open(self.log_file, "a") as f:
+            f.write(json.dumps(log_entry) + "\n")
 
-        with open(os.path.join(run_dir, "prompt.txt"), "w") as f:
-            f.write(prompt)
-            
-        with open(os.path.join(run_dir, "response.txt"), "w") as f:
-            f.write(raw_response)
-            
-        if parsed_json:
-            with open(os.path.join(run_dir, "parsed.json"), "w") as f:
-                json.dump(parsed_json, f, indent=2)
-                
-        with open(os.path.join(run_dir, "metadata.json"), "w") as f:
-            json.dump(metadata, f, indent=2)
-
-        return run_dir
+        return self.log_file
 
 judge_logger = JudgeLogger()
