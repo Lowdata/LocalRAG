@@ -144,3 +144,15 @@
 **Where (Filenames):**
 - `README.md`
 - `docs/architecture.md`
+
+### Post-Launch Fixes
+**What:** Fixed LanceDB race conditions and improved Ollama network routing for cross-platform execution.
+**How:**
+1. Handled a 500 error in `app/storage/vector_store.py` where LanceDB's `list_tables()` check resulted in a race condition on table creation. Switched to `try/except` using `open_table`.
+2. Changed `OLLAMA_BASE_URL` in `.env` to `http://localhost:11434` to support native host execution.
+3. Overrode `OLLAMA_BASE_URL` in `docker-compose.yml` to securely route traffic from the Docker bridge network to the host using `host.docker.internal`.
+**Where:**
+- `app/storage/vector_store.py`
+- `.env` & `.env.example`
+- `docker-compose.yml`
+- `README.md`

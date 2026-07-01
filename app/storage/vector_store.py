@@ -17,11 +17,10 @@ class VectorStore:
         # Connect to LanceDB
         self.db = lancedb.connect(settings.vector_db_path)
         
-        # Create table if it doesn't exist
-        if self.table_name not in self.db.list_tables():
-            self.table = self.db.create_table(self.table_name, schema=ChunkRecord)
-        else:
+        try:
             self.table = self.db.open_table(self.table_name)
+        except Exception:
+            self.table = self.db.create_table(self.table_name, schema=ChunkRecord)
 
     def add_chunks(self, chunks: List[DocumentChunk]) -> None:
         """Generates embeddings for chunks and inserts them into LanceDB."""

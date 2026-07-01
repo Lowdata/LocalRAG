@@ -20,6 +20,11 @@ Before running the backend, you must initialize your local environment variables
 
 Make sure you have [Ollama](https://ollama.com/) running on your machine if you plan to use the `/query` endpoint.
 
+> **⚠️ Important Note on Ollama Networking:**
+> The `.env` file should have `OLLAMA_BASE_URL=http://localhost:11434`. 
+> - **When running natively** (Option 1), the backend will connect to Ollama on your `localhost`.
+> - **When running via Docker** (Option 2), the `docker-compose.yml` file automatically overrides this URL to `http://host.docker.internal:11434` so the container can securely route traffic to the Ollama daemon running on your host machine. You do **not** need to manually modify the `.env` file when switching between Docker and Native execution.
+
 ## Getting Started
 
 ### Option 1: Run Locally (Recommended for Development)
