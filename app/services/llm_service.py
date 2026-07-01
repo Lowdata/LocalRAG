@@ -1,6 +1,6 @@
 import httpx
 from app.core.config import settings
-from typing import List, Dict
+from typing import List
 
 
 class LLMService:

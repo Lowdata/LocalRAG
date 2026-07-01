@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
-from typing import List, Dict, Any
+from typing import Dict
 from app.schemas.api import (
     IngestResponse,
     DocumentsListResponse,
@@ -24,11 +24,13 @@ def get_ingestion_service(
     return IngestionService(store)
 
 
+from typing import Any
+@router.post("/ingest", response_model=IngestResponse)
 @router.post("/ingest", response_model=IngestResponse)
 async def ingest_document(
     file: UploadFile = File(...),
     ingestion_service: IngestionService = Depends(get_ingestion_service),
-):
+) -> Any:
     if not file.filename:
         raise HTTPException(status_code=400, detail="No file uploaded")
 
@@ -53,7 +55,7 @@ async def ingest_document(
 
 
 @router.get("/documents", response_model=DocumentsListResponse)
-async def list_documents(store: VectorStore = Depends(get_vector_store)):
+async def list_documents(store: VectorStore = Depends(get_vector_store)) -> Any:
     try:
         # Group chunks by document_path
         # LanceDB doesn't have complex GROUP BY yet in the Python API easily without DuckDB,
@@ -90,7 +92,7 @@ async def list_documents(store: VectorStore = Depends(get_vector_store)):
 @router.delete("/documents/{document_path:path}", response_model=DeleteResponse)
 async def delete_document(
     document_path: str, store: VectorStore = Depends(get_vector_store)
-):
+) -> Any:
     try:
         store.delete_document(document_path)
         return DeleteResponse(

@@ -1,4 +1,3 @@
-import pytest
 import io
 from app.services.parser_service import ParserService
 

@@ -1,5 +1,4 @@
-from fastapi import APIRouter, HTTPException
-from typing import List, Dict, Any
+from fastapi import APIRouter
 from pydantic import BaseModel
 from app.schemas.judge import JudgeCase, JudgeCaseResult
 from app.judge.judge_service import judge_service
@@ -21,13 +20,15 @@ class CompareRequest(BaseModel):
     prompt_v2: str = "v2"
 
 
+from typing import Any
 @router.post("", response_model=JudgeCaseResult)
-async def evaluate_single_case(request: JudgeSingleRequest):
+@router.post("", response_model=JudgeCaseResult)
+async def evaluate_single_case(request: JudgeSingleRequest) -> Any:
     return await judge_service.evaluate_case(request.case, request.generated_answer)
 
 
 @router.post("/compare")
-async def compare_prompts(request: CompareRequest):
+async def compare_prompts(request: CompareRequest) -> Any:
     return await compare_service.compare_prompts(
         question=request.question,
         expected=request.expected,

@@ -1,5 +1,5 @@
 import lancedb
-from typing import List, Dict, Any, Optional
+from typing import List, Optional
 import json
 import os
 from app.core.config import settings

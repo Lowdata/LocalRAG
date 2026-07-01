@@ -1,5 +1,4 @@
 import os
-import json
 from datetime import datetime
 from typing import List
 from app.schemas.judge import JudgeCaseResult, JudgeSuiteReport

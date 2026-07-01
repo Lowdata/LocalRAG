@@ -1,9 +1,8 @@
-import pytest
 from app.schemas.document import ParsedDocument, ParsedPage
 from app.services.chunk_service import ChunkService
 
 
-def test_chunk_document_basic():
+def test_chunk_document_basic() -> None:
     # Create a dummy ParsedDocument
     page = ParsedPage(page_number=1, text="A" * 1000, metadata={"source": "test"})
     doc = ParsedDocument(
@@ -24,7 +23,7 @@ def test_chunk_document_basic():
     assert chunks[0].chunk_id is not None
 
 
-def test_chunk_document_overlap_and_break():
+def test_chunk_document_overlap_and_break() -> None:
     # Create text with spaces to test breakpoint logic
     text = "Word1 Word2 Word3 Word4 Word5 Word6 Word7 Word8 Word9 Word10"
     page = ParsedPage(page_number=1, text=text)

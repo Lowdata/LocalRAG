@@ -1,9 +1,7 @@
 import time
 import httpx
-import asyncio
-from typing import Optional
 from app.core.config import settings
-from app.schemas.judge import JudgeCase, JudgeVerdict, JudgeCaseResult, JudgeMetadata
+from app.schemas.judge import JudgeCase, JudgeCaseResult, JudgeMetadata
 from app.judge.prompt_builder import prompt_builder
 from app.judge.parser import judge_parser
 from app.judge.logger import judge_logger

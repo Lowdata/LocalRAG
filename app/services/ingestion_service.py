@@ -9,7 +9,8 @@ class IngestionService:
     def __init__(self, vector_store: VectorStore):
         self.vector_store = vector_store
 
-    def ingest_file(self, filename: str, content: IO[bytes]) -> dict:
+    from typing import Any
+    def ingest_file(self, filename: str, content: IO[bytes]) -> dict[str, Any]:
         """
         Orchestrates the ingestion of a single file:
         1. Parses the file into plain text pages.

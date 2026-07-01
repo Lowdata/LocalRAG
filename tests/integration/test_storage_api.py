@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
@@ -11,7 +12,7 @@ import io
 
 # Setup test DB
 @pytest.fixture(scope="module")
-def test_db():
+def test_db() -> None:
     original_path = settings.vector_db_path
     test_path = "data/test_api_lancedb"
     settings.vector_db_path = test_path
@@ -35,7 +36,7 @@ def client(test_db):
     app.dependency_overrides.clear()
 
 
-def test_ingest_markdown(client):
+def test_ingest_markdown(client) -> None:
     content = b"# Integration Test\n\nThis is an integration test for the API."
     response = client.post(
         "/api/v1/ingest",
@@ -50,7 +51,7 @@ def test_ingest_markdown(client):
     assert data["num_chunks"] >= 1
 
 
-def test_list_documents(client):
+def test_list_documents(client) -> None:
     response = client.get("/api/v1/documents")
     assert response.status_code == 200
     data = response.json()
@@ -61,7 +62,7 @@ def test_list_documents(client):
     assert doc["num_chunks"] >= 1
 
 
-def test_delete_document(client):
+def test_delete_document(client) -> None:
     response = client.delete("/api/v1/documents/test_doc.md")
     assert response.status_code == 200
     assert response.json()["document_path"] == "test_doc.md"

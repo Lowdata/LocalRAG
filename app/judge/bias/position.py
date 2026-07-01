@@ -1,6 +1,7 @@
+from typing import Any
 class PositionBias:
     @staticmethod
-    def measure_flip_rate(results_ab: list, results_ba: list) -> float:
+    def measure_flip_rate(results_ab: list[Any], results_ba: list[Any]) -> float:
         """
         Measures how often the judge changes its 'winner' when the order of candidates A and B are swapped.
         """

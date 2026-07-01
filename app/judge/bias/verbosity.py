@@ -1,3 +1,4 @@
+from typing import Any
 class VerbosityBias:
     @staticmethod
     def generate_fluffed_answer(answer: str) -> str:
@@ -11,10 +12,10 @@ class VerbosityBias:
         return answer + fluff
 
     @staticmethod
-    def measure_score_difference(original_scores: list, fluffed_scores: list) -> float:
+    def measure_score_difference(original_scores: list[Any], fluffed_scores: list[Any]) -> float:
         """Calculates the average point difference given by the judge when fluff is added."""
         if len(original_scores) != len(fluffed_scores) or len(original_scores) == 0:
             return 0.0
 
         diffs = [f - o for o, f in zip(original_scores, fluffed_scores)]
-        return sum(diffs) / len(diffs)
+        return float(sum(diffs) / len(diffs))

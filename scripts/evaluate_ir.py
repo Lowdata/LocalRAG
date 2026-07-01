@@ -3,8 +3,7 @@ import time
 import asyncio
 import numpy as np
 import os
-import io
-from typing import List, Dict
+from typing import List
 
 API_URL = "http://127.0.0.1:8000/api/v1/query"
 INGEST_URL = "http://127.0.0.1:8000/api/v1/ingest"
@@ -27,7 +26,8 @@ When running natively, set OLLAMA_BASE_URL to localhost:11434. When running via 
 # 2. A dataset of questions with ground-truth chunk mappings.
 # Assuming a chunk size that roughly captures 1-2 sections per chunk.
 # By forcing specific chunk_ids, we can compute strict IR metrics.
-DATASET = [
+from typing import Any
+DATASET: list[dict[str, Any]] = [
     {
         "question": "What components make up the architecture of the RAG backend?",
         "relevant_chunk_ids": [
@@ -69,7 +69,7 @@ async def llm_judge(prompt: str) -> str:
                 json={"model": MODEL_NAME, "prompt": prompt, "stream": False},
             )
             if res.status_code == 200:
-                return res.json().get("response", "").strip()
+                return str(res.json().get("response", "")).strip()
         except Exception:
             pass
     return "UNKNOWN"
@@ -127,7 +127,7 @@ def calculate_ndcg(retrieved_ids: List[str], relevant_ids: List[str], k: int) ->
     return dcg / idcg if idcg > 0 else 0.0
 
 
-async def run_evaluation():
+async def run_evaluation() -> None:
     # 1. Setup: Write the corpus to disk and ingest it
     print(f"Setting up test corpus: {EVAL_FILE}")
     with open(EVAL_FILE, "w") as f:

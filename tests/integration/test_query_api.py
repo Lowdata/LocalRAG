@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
@@ -10,7 +11,7 @@ import shutil
 
 
 @pytest.fixture(scope="module")
-def test_query_db():
+def test_query_db() -> None:
     original_path = settings.vector_db_path
     test_path = "data/test_query_lancedb"
     settings.vector_db_path = test_path
@@ -51,7 +52,7 @@ def client(test_query_db):
     app.dependency_overrides.clear()
 
 
-def test_query_api(client, monkeypatch):
+def test_query_api(client, monkeypatch) -> None:
     # Mock LLMService.generate_response to avoid actual network call to Ollama
     async def mock_generate(prompt: str) -> str:
         return "Based on the context, the Eiffel Tower is in Paris."

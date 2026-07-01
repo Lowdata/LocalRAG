@@ -2,7 +2,7 @@ from app.schemas.document import ParsedDocument, ParsedPage
 from app.services.chunk_service import ChunkService
 
 
-def test_chunking_boundaries():
+def test_chunking_boundaries() -> None:
     # A text with exactly 25 characters
     # "This is a test document."
     text = "This is a test document that should be chunked properly."

@@ -1,11 +1,10 @@
-import pytest
 from fastapi.testclient import TestClient
 from app.main import app
 
 client = TestClient(app)
 
 
-def test_judge_single_case():
+def test_judge_single_case() -> None:
     payload = {
         "case": {
             "id": "test_case",
@@ -26,7 +25,7 @@ def test_judge_single_case():
     # "verdict" could be null if Ollama is unreachable, so we don't strictly assert its contents here.
 
 
-def test_judge_compare():
+def test_judge_compare() -> None:
     payload = {
         "question": "What is AI?",
         "expected": "AI is Artificial Intelligence.",

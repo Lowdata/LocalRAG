@@ -1,6 +1,7 @@
+from typing import Any
 class SycophancyBias:
     @staticmethod
-    def measure_fooled_rate(original_passes: list, sycophantic_passes: list) -> float:
+    def measure_fooled_rate(original_passes: list[Any], sycophantic_passes: list[Any]) -> float:
         """
         Calculates how often the judge was fooled by a confidently wrong answer.
         original_passes: The boolean pass verdicts of wrong answers.

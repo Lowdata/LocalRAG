@@ -1,8 +1,7 @@
-import pytest
 from app.services.embedding_service import EmbeddingService
 
 
-def test_get_embedding():
+def test_get_embedding() -> None:
     text = "This is a test document for embedding."
     embedding = EmbeddingService.get_embedding(text)
 
@@ -14,7 +13,7 @@ def test_get_embedding():
     assert len(embedding) == 384
 
 
-def test_get_embeddings():
+def test_get_embeddings() -> None:
     texts = ["First document.", "Second document."]
     embeddings = EmbeddingService.get_embeddings(texts)
 

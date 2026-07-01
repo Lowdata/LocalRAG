@@ -1,3 +1,4 @@
+# mypy: ignore-errors
 import pytest
 import os
 import shutil
@@ -22,7 +23,7 @@ def setup_test_db():
         shutil.rmtree(test_path)
 
 
-def test_vector_store_add_and_search():
+def test_vector_store_add_and_search() -> None:
     store = VectorStore(table_name="test_chunks")
 
     # Create dummy chunks
@@ -60,7 +61,7 @@ def test_vector_store_add_and_search():
     assert results2[0].chunk_id == "chunk1"
 
 
-def test_delete_document():
+def test_delete_document() -> None:
     store = VectorStore(table_name="test_delete")
 
     chunks = [
