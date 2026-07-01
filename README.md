@@ -32,9 +32,10 @@ Since this backend uses a local AI model, you must have [Ollama](https://ollama.
 **If you are a new user:**
 1. Download Ollama from [ollama.com](https://ollama.com/) (or run `brew install --cask ollama` on Mac).
 2. Open the Ollama application so the daemon runs in the background.
-3. Open your terminal and download the required AI model:
+3. Open your terminal and download the required AI models (Qwen for Generation, Llama 3.2 for the Judge):
    ```bash
    ollama pull qwen2.5:1.5b
+   ollama pull llama3.2
    ```
 > **Tip:** If you ever try to run `ollama serve` in your terminal and get an `address already in use` error, it simply means the Ollama application is already running happily in your background/menu bar! You can either leave it running there, or quit it from your menu bar if you specifically want to run it from the terminal.
 > 
