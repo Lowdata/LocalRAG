@@ -25,9 +25,6 @@ def get_ingestion_service(
     return IngestionService(store)
 
 
-
-
-
 @router.post("/ingest", response_model=IngestResponse)
 @router.post("/ingest", response_model=IngestResponse)
 async def ingest_document(

@@ -21,9 +21,6 @@ class CompareRequest(BaseModel):
     prompt_v2: str = "v2"
 
 
-
-
-
 @router.post("", response_model=JudgeCaseResult)
 @router.post("", response_model=JudgeCaseResult)
 async def evaluate_single_case(request: JudgeSingleRequest) -> Any:
