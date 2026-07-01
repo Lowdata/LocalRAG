@@ -1,0 +1,11 @@
+```json
+{
+  "correctness": 10,
+  "faithfulness": 0,
+  "completeness": 10,
+  "safety": 10,
+  "overall": 10,
+  "pass_verdict": true,
+  "reasoning": "The GENERATED ANSWER is factually correct and aligns with the EXPECTED ANSWER. It accurately defines AI as Artificial Intelligence, which meets all the criteria provided."
+}
+```

@@ -83,15 +83,30 @@ Once running, you can access the following REST APIs:
 - `DELETE /api/v1/documents/{document_path}`: Delete a document and all of its chunks.
 - `POST /api/v1/query`: Send a JSON body `{"query": "your question"}` to retrieve relevant chunks and generate a response from Ollama.
 
-## Evaluation Pipeline
+## Evaluation Pipelines
 
-To test the latency and IR metrics of your RAG pipeline end-to-end (Retrieval Hit Rate, MRR, Faithfulness, Relevance):
+### 1. IR Evaluation (Retrieval + Generation Metrics)
+To test the strict latency and IR metrics of your RAG pipeline end-to-end (Retrieval Hit Rate, MRR, Context Precision, Recall@k):
 
 ```bash
 python scripts/evaluate_ir.py
 ```
 
 This will run a suite of benchmark questions against your live API and output the average retrieval + generation latency alongside real IR metrics.
+
+### 2. LLM-as-a-Judge Framework
+To run the full grading pipeline that evaluates generated RAG answers for Correctness, Faithfulness, and Completeness:
+
+```bash
+python scripts/evaluate_judge.py
+```
+This script will:
+1. Load cases from `eval_datasets/judge/suite.json`.
+2. Hit your local `/query` API to generate a real answer.
+3. Feed the generated answer, expected answer, and question into the Ollama Judge model.
+4. Output a comprehensive suite report in `reports/judge/`.
+
+You can also test the Judge endpoints manually in Swagger (`http://localhost:8000/docs#/Judge`).
 
 ### Weak Links (Retrieval vs. Generation)
 Based on our benchmarking:

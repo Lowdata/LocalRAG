@@ -1,0 +1,9 @@
+{
+  "judge_model": "qwen2.5:1.5b",
+  "generator_model": "qwen2.5:1.5b",
+  "tokens_prompt": 286,
+  "tokens_completion": 81,
+  "estimated_cost": "0.00 (Local Inference)",
+  "latency_ms": 1683,
+  "success": true
+}
