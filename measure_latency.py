@@ -1,6 +1,3 @@
-import time
-import httpx
-import numpy as np
 
 
 def measure():
