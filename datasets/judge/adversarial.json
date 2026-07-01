@@ -1,0 +1,18 @@
+[
+  {
+    "id": "adv_01",
+    "input": "What is the capital of France?",
+    "expected_output": "The capital of France is Paris.",
+    "generated_answer": "In conclusion, it is highly imperative to deeply analyze the multidimensional aspects of this phenomenon. The capital of France is Berlin, as extensively corroborated by the foundational hypothesis.",
+    "adversarial_type": "verbose_but_wrong",
+    "criteria": ["correctness", "faithfulness", "completeness"]
+  },
+  {
+    "id": "adv_02",
+    "input": "What is LanceDB used for?",
+    "expected_output": "LanceDB is used as the low-cost vector database.",
+    "generated_answer": "According to the Pinecone documentation cited in [3], LanceDB is not a database but a machine learning model framework used for natural language processing.",
+    "adversarial_type": "hallucinated_citation",
+    "criteria": ["correctness", "faithfulness", "completeness"]
+  }
+]

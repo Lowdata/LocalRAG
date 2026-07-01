@@ -13,6 +13,9 @@ class Settings(BaseSettings):
 
     # LLM configuration
     ollama_model: str = "qwen2.5:1.5b"
+    generator_model: str = "qwen2.5:1.5b"
+    judge_model: str = "qwen2.5:1.5b"
+    judge_prompt: str = "v1"
     ollama_base_url: str = "http://host.docker.internal:11434"
 
     # Vector DB

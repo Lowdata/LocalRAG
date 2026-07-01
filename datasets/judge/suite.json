@@ -1,0 +1,14 @@
+[
+  {
+    "id": "case_01",
+    "input": "What is the capital of France?",
+    "expected_output": "The capital of France is Paris.",
+    "criteria": ["correctness", "faithfulness", "completeness"]
+  },
+  {
+    "id": "case_02",
+    "input": "What is LanceDB used for in this project?",
+    "expected_output": "LanceDB is used as the low-cost vector database for storing and retrieving document embeddings.",
+    "criteria": ["correctness", "faithfulness", "completeness"]
+  }
+]

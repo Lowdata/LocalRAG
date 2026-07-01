@@ -2,11 +2,19 @@
 
 A completely offline, local-only Retrieval-Augmented Generation (RAG) backend built with FastAPI, LanceDB, SentenceTransformers, and Ollama.
 
-## Architecture Highlights
-- **FastAPI**: Handles high-performance asynchronous API endpoints.
-- **LanceDB**: Local, embedded PyArrow-based vector database (no extra servers needed).
-- **SentenceTransformers**: `BAAI/bge-small-en-v1.5` running locally via PyTorch for fast, local embedding generation.
-- **Ollama**: Connects to a local Ollama instance (defaulting to `qwen2.5:1.5b`) for LLM response generation.
+## Architecture
+
+This project is divided into two primary parts:
+
+1. **Part 1: Cost Efficient RAG**
+   - A fast, deterministic retrieval pipeline leveraging LanceDB as a low-cost, high-performance embedded store.
+   - Intelligent chunking that respects whitespace boundaries.
+   - Built-in strict IR metrics (Recall@k, nDCG, Context Precision) using deterministic chunk IDs.
+
+2. **Part 2: Evaluation Framework**
+   - An extensible "LLM-as-a-Judge" grading pipeline that evaluates generated RAG answers for Correctness, Faithfulness, and Completeness.
+   - Includes robust bias-checking modules (position bias, verbosity, sycophancy).
+   - Generates auditable suite reports with full prompt/response logging.
 
 ## Prerequisites
 

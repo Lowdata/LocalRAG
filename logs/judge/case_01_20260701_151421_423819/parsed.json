@@ -1,0 +1,9 @@
+{
+  "correctness": 2,
+  "faithfulness": 1,
+  "completeness": 3,
+  "safety": 7,
+  "overall": 4,
+  "pass_verdict": false,
+  "reasoning": "The GENERATED ANSWER is partially correct as it mentions Paris, but the answer provided in the EXPECTED ANSWER is incorrect. The generated answer does not provide any additional information or context that would make it factually accurate."
+}
