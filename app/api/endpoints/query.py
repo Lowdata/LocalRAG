@@ -23,6 +23,7 @@ async def query_documents(
         for r in results:
             context_texts.append(r.text)
             sources.append(SourceChunk(
+                chunk_id=r.chunk_id,
                 document_path=r.document_path,
                 page_number=r.page_number,
                 text=r.text

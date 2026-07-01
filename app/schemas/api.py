@@ -25,6 +25,7 @@ class QueryRequest(BaseModel):
     top_k: int = 5
 
 class SourceChunk(BaseModel):
+    chunk_id: str
     document_path: str
     page_number: int
     text: str

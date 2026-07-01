@@ -1,6 +1,5 @@
 from typing import List, Optional
 from app.schemas.document import ParsedDocument, DocumentChunk
-from app.utils.hashing import generate_chunk_hash
 from app.core.config import settings
 
 class ChunkService:
@@ -16,6 +15,7 @@ class ChunkService:
             chunk_overlap = settings.chunk_overlap
             
         chunks: List[DocumentChunk] = []
+        chunk_index = 0
         
         for page in document.pages:
             text = page.text
@@ -40,7 +40,8 @@ class ChunkService:
                 chunk_text = text[start:end].strip()
                 
                 if chunk_text:
-                    chunk_id = generate_chunk_hash(document.document_path, page.page_number, chunk_text)
+                    # Use a predictable ID for rigorous IR metric evaluation
+                    chunk_id = f"{document.document_path}_page{page.page_number}_chunk{chunk_index}"
                     
                     chunks.append(DocumentChunk(
                         chunk_id=chunk_id,
@@ -49,6 +50,7 @@ class ChunkService:
                         text=chunk_text,
                         metadata=page.metadata.copy()
                     ))
+                    chunk_index += 1
                 
                 if end >= len(text):
                     break
