@@ -51,6 +51,7 @@ async def ingest_document(
         document_path=result["document_path"],
         num_pages=result["num_pages"],
         num_chunks=result["num_chunks"],
+        total_vectors_in_db=result["total_vectors_in_db"],
     )
 
 

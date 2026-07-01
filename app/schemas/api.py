@@ -7,6 +7,7 @@ class IngestResponse(BaseModel):
     document_path: str
     num_pages: int
     num_chunks: int
+    total_vectors_in_db: int
 
 
 class DocumentInfo(BaseModel):

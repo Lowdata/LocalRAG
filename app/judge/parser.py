@@ -18,8 +18,18 @@ class JudgeParser:
         # Fallback to finding the first { and last }
         start = text.find("{")
         end = text.rfind("}")
+        
+        # If it found a start but no end, it might have been cut off. Try appending '}'
+        if start != -1 and end == -1:
+            text = text + "}"
+            end = text.rfind("}")
+            
         if start != -1 and end != -1 and end > start:
-            return text[start : end + 1]
+            # Check if it needs quotes closed
+            extracted = text[start : end + 1]
+            if extracted.count('"') % 2 != 0:
+                extracted = extracted[:-1] + '\"}'
+            return extracted
 
         return text.strip()
 

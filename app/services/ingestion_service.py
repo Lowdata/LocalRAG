@@ -41,4 +41,5 @@ class IngestionService:
             "document_path": parsed_doc.document_path,
             "num_pages": len(parsed_doc.pages),
             "num_chunks": len(chunks),
+            "total_vectors_in_db": self.vector_store.count_total_vectors(),
         }

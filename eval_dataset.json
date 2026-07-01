@@ -1,0 +1,170 @@
+[
+  {
+    "question": "What new functionality was added for the LanceDB integration?",
+    "gold_answer": "Semantic search and document deletion capabilities were added.",
+    "relevant_chunk_ids": [
+      "development_log.md_page1_chunk13"
+    ],
+    "document_path": "development_log.md"
+  },
+  {
+    "question": "How does a VectorStore work in this implementation?",
+    "gold_answer": "It uses local LanceDB to persist chunks and their embeddings.",
+    "relevant_chunk_ids": [
+      "records.md_page1_chunk10"
+    ],
+    "document_path": "records.md"
+  },
+  {
+    "question": "What are some scenarios where using a managed database is preferable over a self-managed one for FastAPI applications?",
+    "gold_answer": [
+      "High Concurrency / Distributed Scaling",
+      "Operational Overhead",
+      "Advanced Filtering"
+    ],
+    "relevant_chunk_ids": [
+      "cost_analysis.md_page1_chunk5"
+    ],
+    "document_path": "cost_analysis.md"
+  },
+  {
+    "question": "What is the next milestone for the project, and when is it expected to be completed?",
+    "gold_answer": "Phase 3: Custom Chunker, expected to be completed on 2026-07-01",
+    "relevant_chunk_ids": [
+      "development_log.md_page1_chunk4"
+    ],
+    "document_path": "development_log.md"
+  },
+  {
+    "question": "What is the primary purpose of using JSON strings to store metadata with Arrow maps?",
+    "gold_answer": "Schema definition",
+    "relevant_chunk_ids": [
+      "development_log.md_page1_chunk12"
+    ],
+    "document_path": "development_log.md"
+  },
+  {
+    "question": "What is a future improvement to be added in the project?",
+    "gold_answer": "Support streaming responses using Server-Sent Events (SSE)",
+    "relevant_chunk_ids": [
+      "development_log.md_page1_chunk19"
+    ],
+    "document_path": "development_log.md"
+  },
+  {
+    "question": "What is the default value for chunk size in PyTorch's custom character-based chunking service?",
+    "gold_answer": "500",
+    "relevant_chunk_ids": [
+      "records.md_page1_chunk4"
+    ],
+    "document_path": "records.md"
+  },
+  {
+    "question": "How does the implementation of VectorStore in LanceDB use local database",
+    "gold_answer": "it uses local LanceDB for persistence of chunks and their embeddings",
+    "relevant_chunk_ids": [
+      "records.md_page1_chunk9"
+    ],
+    "document_path": "records.md"
+  },
+  {
+    "question": "What is the LanceDB storage API used for?",
+    "gold_answer": "The LanceDB storage API is used for uploading, chunking, embedding, and storing files in LanceDB.",
+    "relevant_chunk_ids": [
+      "records.md_page1_chunk11"
+    ],
+    "document_path": "records.md"
+  },
+  {
+    "question": "Is LanceDB suitable for applications that require analytical queries and vector search?",
+    "gold_answer": "yes",
+    "relevant_chunk_ids": [
+      "cost_analysis.md_page1_chunk1"
+    ],
+    "document_path": "cost_analysis.md"
+  },
+  {
+    "question": "What is the typical range for rendering times with Apple Silicon GPU acceleration?",
+    "gold_answer": "2,000ms - 5,000ms",
+    "relevant_chunk_ids": [
+      "cost_analysis.md_page1_chunk7"
+    ],
+    "document_path": "cost_analysis.md"
+  },
+  {
+    "question": "What is the architecture of the Local RAG Backend like?",
+    "gold_answer": "The application is built completely offline, focusing on privacy and local deployment.",
+    "relevant_chunk_ids": [
+      "architecture.md_page1_chunk0"
+    ],
+    "document_path": "architecture.md"
+  },
+  {
+    "question": "Can a language model be trained to generate accurate responses using only the information given in its input context?",
+    "gold_answer": "yes",
+    "relevant_chunk_ids": [
+      "architecture.md_page1_chunk5"
+    ],
+    "document_path": "architecture.md"
+  },
+  {
+    "question": "What new endpoints were added in the latest API version?",
+    "gold_answer": [
+      "GET /api/v1/documents",
+      "DELETE /api/v1/documents/{document_path}",
+      "POST /api/v1/ingest"
+    ],
+    "relevant_chunk_ids": [
+      "development_log.md_page1_chunk16"
+    ],
+    "document_path": "development_log.md"
+  },
+  {
+    "question": "What new tools or features were added to the project?",
+    "gold_answer": "Mermaid.js for architecture diagrams",
+    "relevant_chunk_ids": [
+      "development_log.md_page1_chunk22"
+    ],
+    "document_path": "development_log.md"
+  },
+  {
+    "question": "What is the purpose of ChunkService in the document processing pipeline?",
+    "gold_answer": "ChunkService is used to intelligently break down page text into chunks, looping through the text, slicing by a chunk size with overlap, and stepping forward based on spaces or newlines.",
+    "relevant_chunk_ids": [
+      "records.md_page1_chunk5"
+    ],
+    "document_path": "records.md"
+  },
+  {
+    "question": "Why are inline HTML elements like \u202fu bold\u202f not being preserved as a single line in the ParserService?",
+    "gold_answer": "Inline HTML elements, such as **bold**, were being stripped into separate lines instead of kept adjacent to surrounding text.",
+    "relevant_chunk_ids": [
+      "records.md_page1_chunk7"
+    ],
+    "document_path": "records.md"
+  },
+  {
+    "question": "What are the potential drawbacks of using a fully managed vector database for our application?",
+    "gold_answer": "High, inflexible infrastructure costs due to always-on pod sizes or scaling with stored vectors.",
+    "relevant_chunk_ids": [
+      "cost_analysis.md_page1_chunk0"
+    ],
+    "document_path": "cost_analysis.md"
+  },
+  {
+    "question": "What is the cost of storing 10M vectors in AWS EBS?",
+    "gold_answer": "$0.80/mo",
+    "relevant_chunk_ids": [
+      "cost_analysis.md_page1_chunk3"
+    ],
+    "document_path": "cost_analysis.md"
+  },
+  {
+    "question": "What is the bottleneck in the application",
+    "gold_answer": "Generation",
+    "relevant_chunk_ids": [
+      "cost_analysis.md_page1_chunk6"
+    ],
+    "document_path": "cost_analysis.md"
+  }
+]

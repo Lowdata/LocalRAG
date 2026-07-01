@@ -67,3 +67,7 @@ class VectorStore:
         # We need to escape single quotes if the document_path has them
         safe_path = document_path.replace("'", "''")
         self.table.delete(f"document_path = '{safe_path}'")
+
+    def count_total_vectors(self) -> int:
+        """Returns the total number of vectors currently in the database."""
+        return len(self.table)
