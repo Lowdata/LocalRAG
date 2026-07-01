@@ -77,13 +77,18 @@ Once running, you can access the following REST APIs:
 
 ## Evaluation Pipeline
 
-To test the latency and functionality of your RAG pipeline end-to-end:
+To test the latency and IR metrics of your RAG pipeline end-to-end (Retrieval Hit Rate, MRR, Faithfulness, Relevance):
 
 ```bash
-python scripts/evaluate.py
+python scripts/evaluate_ir.py
 ```
 
-This will run a suite of benchmark questions against your live API and output the average retrieval + generation latency.
+This will run a suite of benchmark questions against your live API and output the average retrieval + generation latency alongside real IR metrics.
+
+### Weak Links (Retrieval vs. Generation)
+Based on our benchmarking, **generation is the weak link**. LanceDB returns top-k nearest neighbors in ~20ms, while the local LLM generation takes 95% of the total request latency (usually 2,000ms+ depending on your GPU). Optimizing the vector store provides marginal speed gains, highly justifying the massive cost savings of our embedded DB choice.
+
+> **Read more in our complete [Infrastructure Cost Analysis](docs/cost_analysis.md).**
 
 ## Utility Scripts
 
