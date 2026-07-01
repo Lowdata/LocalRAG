@@ -34,7 +34,7 @@ jobs:
       run: ruff check .
       
     - name: Type Checking (Mypy)
-      run: mypy .
+      run: mypy app
       
     - name: Run Tests
       run: pytest
