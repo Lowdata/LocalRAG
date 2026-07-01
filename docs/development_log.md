@@ -87,3 +87,41 @@ Objective: Fix markdown parser test failure caused by BeautifulSoup newline sepa
 Completed Tasks: Implemented `_clean_html_text` helper in `ParserService` to intelligently separate only block-level HTML elements and safely merge inline elements.
 Files Modified:
 - app/services/parser_service.py
+
+# Milestone 5
+Date: 2026-07-01
+Objective: Configure local LanceDB in  and build storage layer.
+Completed Tasks: Implemented  for LanceDB integration. Wrote unit tests for inserting, semantic search, and document deletion. Fully typed with mypy.
+Files Added:
+- app/schemas/vector.py
+- app/storage/vector_store.py
+- tests/unit/test_vector_store.py
+Classes Added: ChunkRecord, VectorStore
+Functions Added: VectorStore.add_chunks, VectorStore.search, VectorStore.delete_document
+Endpoints Added: None
+Tests Added: test_vector_store_add_and_search, test_delete_document
+Configuration Changes: Utilizing vector_db_path from config.
+Architectural Decisions: Used  for schema definition. Store metadata as JSON strings because native Arrow maps can be rigid with nested dicts.
+Tradeoffs: Need to serialize/deserialize metadata to/from JSON strings manually via properties.
+Known Issues: None.
+Future Improvements: None.
+Next Milestone: Phase 6 (Storage API)
+
+# Milestone 5
+Date: 2026-07-01
+Objective: Configure local LanceDB in `data/lancedb/` and build storage layer.
+Completed Tasks: Implemented `VectorStore` for LanceDB integration. Wrote unit tests for inserting, semantic search, and document deletion. Fully typed with mypy.
+Files Added:
+- app/schemas/vector.py
+- app/storage/vector_store.py
+- tests/unit/test_vector_store.py
+Classes Added: ChunkRecord, VectorStore
+Functions Added: VectorStore.add_chunks, VectorStore.search, VectorStore.delete_document
+Endpoints Added: None
+Tests Added: test_vector_store_add_and_search, test_delete_document
+Configuration Changes: Utilizing vector_db_path from config.
+Architectural Decisions: Used `lancedb.pydantic.LanceModel` for schema definition. Store metadata as JSON strings because native Arrow maps can be rigid with nested dicts.
+Tradeoffs: Need to serialize/deserialize metadata to/from JSON strings manually via properties.
+Known Issues: None.
+Future Improvements: None.
+Next Milestone: Phase 6 (Storage API)

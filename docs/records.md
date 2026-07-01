@@ -73,3 +73,27 @@
 3. Then it runs `soup.get_text(separator="")` so inline tags seamlessly merge with surrounding text without breaking into newlines.
 **Where (Filenames):**
 - `app/services/parser_service.py`
+
+## Phase 5: Vector Database (LanceDB)
+**What:** Implemented  using local LanceDB to persist chunks and their embeddings.
+**How:** 
+1. Defined  schema using  with a  field.
+2. Created  providing , , and  functionality.
+3. Automatically maps Pydantic metadata dicts to JSON strings for compatibility with the underlying PyArrow schema.
+4. Created  to ensure chunk insertion, semantic search, and document deletion work seamlessly against a temporary DB.
+**Where (Filenames):**
+- 
+- 
+- 
+
+## Phase 5: Vector Database (LanceDB)
+**What:** Implemented `VectorStore` using local LanceDB to persist chunks and their embeddings.
+**How:** 
+1. Defined `ChunkRecord` schema using `lancedb.pydantic.LanceModel` with a `Vector(384)` field.
+2. Created `app/storage/vector_store.py` providing `add_chunks`, `search`, and `delete_document` functionality.
+3. Automatically maps Pydantic metadata dicts to JSON strings for compatibility with the underlying PyArrow schema.
+4. Created `tests/unit/test_vector_store.py` to ensure chunk insertion, semantic search, and document deletion work seamlessly against a temporary DB.
+**Where (Filenames):**
+- `app/schemas/vector.py`
+- `app/storage/vector_store.py`
+- `tests/unit/test_vector_store.py`
