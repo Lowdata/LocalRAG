@@ -2,6 +2,7 @@ from typing import List
 from sentence_transformers import SentenceTransformer
 from app.core.config import settings
 
+
 class EmbeddingService:
     _model: SentenceTransformer | None = None
 

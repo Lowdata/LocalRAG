@@ -1,5 +1,6 @@
 import statistics
 
+
 class ScoreClusteringBias:
     @staticmethod
     def measure_variance(scores: list) -> float:

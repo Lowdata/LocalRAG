@@ -20,7 +20,7 @@ class Settings(BaseSettings):
 
     # Vector DB
     vector_db_path: str = "data/lancedb"
-    
+
     # Embeddings
     embedding_model: str = "BAAI/bge-small-en-v1.5"
 

@@ -15,6 +15,6 @@ class VerbosityBias:
         """Calculates the average point difference given by the judge when fluff is added."""
         if len(original_scores) != len(fluffed_scores) or len(original_scores) == 0:
             return 0.0
-            
+
         diffs = [f - o for o, f in zip(original_scores, fluffed_scores)]
         return sum(diffs) / len(diffs)

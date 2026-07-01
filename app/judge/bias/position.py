@@ -11,7 +11,7 @@ class PositionBias:
         for ab, ba in zip(results_ab, results_ba):
             # If AB says 'A' won, BA should say 'B' won (since they are swapped).
             # If they both say 'A' won, it means the judge just picked the first position both times!
-            if ab == ba and ab in ['A', 'B']:
+            if ab == ba and ab in ["A", "B"]:
                 flips += 1
-                
+
         return flips / len(results_ab)

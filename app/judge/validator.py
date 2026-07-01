@@ -1,8 +1,11 @@
 from typing import List
 
+
 class JudgeValidator:
     @staticmethod
-    def calculate_cohens_kappa(judge_scores: List[int], human_scores: List[int], threshold: int = 7) -> float:
+    def calculate_cohens_kappa(
+        judge_scores: List[int], human_scores: List[int], threshold: int = 7
+    ) -> float:
         """
         Calculates a simplified agreement metric.
         If both score >= threshold, it's a pass. Otherwise fail.
@@ -10,7 +13,11 @@ class JudgeValidator:
         if len(judge_scores) != len(human_scores) or len(judge_scores) == 0:
             return 0.0
 
-        agree = sum(1 for j, h in zip(judge_scores, human_scores) if (j >= threshold) == (h >= threshold))
+        agree = sum(
+            1
+            for j, h in zip(judge_scores, human_scores)
+            if (j >= threshold) == (h >= threshold)
+        )
         return agree / len(judge_scores)
 
     @staticmethod
@@ -30,7 +37,8 @@ class JudgeValidator:
             verdicts = [run[i] for run in runs]
             if len(set(verdicts)) > 1:
                 flips += 1
-                
+
         return flips / num_cases
+
 
 judge_validator = JudgeValidator()

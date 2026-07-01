@@ -1,5 +1,6 @@
 import os
 
+
 class PromptBuilder:
     def __init__(self, prompts_dir: str = "prompts"):
         self.prompts_dir = prompts_dir
@@ -11,12 +12,13 @@ class PromptBuilder:
         with open(filepath, "r") as f:
             return f.read()
 
-    def build_judge_prompt(self, version: str, question: str, expected: str, generated: str) -> str:
+    def build_judge_prompt(
+        self, version: str, question: str, expected: str, generated: str
+    ) -> str:
         template = self.load_prompt(version)
         return template.format(
-            question=question,
-            expected=expected,
-            generated=generated
+            question=question, expected=expected, generated=generated
         )
+
 
 prompt_builder = PromptBuilder()

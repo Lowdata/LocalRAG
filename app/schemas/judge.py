@@ -1,11 +1,13 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional, Any
 
+
 class JudgeCase(BaseModel):
     id: str
     input: str
     expected_output: str
     criteria: List[str] = ["correctness", "faithfulness", "completeness"]
+
 
 class JudgeVerdict(BaseModel):
     correctness: int = Field(ge=0, le=10)
@@ -16,9 +18,11 @@ class JudgeVerdict(BaseModel):
     pass_verdict: bool
     reasoning: str
 
+
 class PairwiseVerdict(BaseModel):
     winner: str = Field(description="'A', 'B', or 'Tie'")
     reasoning: str
+
 
 class JudgeMetadata(BaseModel):
     judge_model: str
@@ -29,10 +33,12 @@ class JudgeMetadata(BaseModel):
     latency_ms: int
     success: bool
 
+
 class JudgeCaseResult(BaseModel):
     case_id: str
     verdict: Optional[JudgeVerdict]
     metadata: JudgeMetadata
+
 
 class JudgeSuiteReport(BaseModel):
     total_cases: int
