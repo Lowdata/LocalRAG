@@ -1,6 +1,6 @@
 # Local RAG Backend
 
-A completely offline, local-only Retrieval-Augmented Generation (RAG) backend built with FastAPI, LanceDB, SentenceTransformers, and Ollama.
+A completely offline, local-only Retrieval-Augmented Generation (RAG) backend built with FastAPI, LanceDBs, SentenceTransformers, and Ollama.
 
 **📺 [Watch the full Walkthrough Video on Loom](https://www.loom.com/share/35e1b27a3a2c470e8f2526639a31e53e)**
 
